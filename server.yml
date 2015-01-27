@@ -7,10 +7,10 @@ database:
   driverClass: com.mysql.jdbc.Driver
 
   # the username
-  user: leo
+  user: user
 
   # the password
-  password: leoleo
+  password: password
 
   # the JDBC URL
   url: jdbc:mysql://localhost/DropwizardOauth2
