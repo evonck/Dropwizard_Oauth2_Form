@@ -1,53 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.evonck</groupId>
-    <artifactId>Dropwizard-Oauth2-Form</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <name>Dropwizard-Oauth2-Form</name>
-    <modules>
-        <module>Dropwizard-server</module>
-        <module>angularjs-webapp</module>
-    </modules>
-
-    <!-- ======================== -->
-    <!-- Properties/Versions -->
-    <!-- ======================== -->
-    <properties>
-        <!-- Maven project settings -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- <buildnumber.version>1.1</buildnumber.version> -->
-        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-        <targetJdk>1.7</targetJdk>
-        <java.version>1.7</java.version>
-        <dw.version>0.6.2</dw.version>
-        <postgresql.version>9.1-901.jdbc4</postgresql.version>
-
-        <!--
-        Jetty (for the angularjs-webapp). Make sure that the version corresponds with the Jetty
-        version included with Dropwizard. See:
-        http://mvnrepository.com/artifact/com.yammer.dropwizard/dropwizard-core/0.6.2
-        -->
-        <jetty.version>8.1.10.v20130312</jetty.version>
-
-        <!-- For JSP jars -->
-        <glassfish.javax.version>2.2.3</glassfish.javax.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-
-            <!-- Servlet API -->
-            <!--dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
-            </dependency-->
-
-            <dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.evonck.dw.server</groupId>
+    <artifactId>DropwizardOauth2Form</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>DropwizardOauth2Form</name>
+  <dependencies>
+        <dependency>
         	<groupId>io.dropwizard</groupId>
        	 	<artifactId>dropwizard-core</artifactId>
         	<version>${dropwizard.version}</version>
@@ -57,6 +16,12 @@
        	 	<artifactId>dropwizard-auth</artifactId>
         	<version>${dropwizard.version}</version>
     	</dependency>
+    	<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+    	
         <dependency>
         	<groupId>io.dropwizard</groupId>
         	<artifactId>dropwizard-views-freemarker</artifactId>
@@ -82,36 +47,52 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
   		</dependency>
-
-            <!--
-            Jetty (for the angularjs-webapp). Make sure that the version corresponds with the Jetty
-            version included with Dropwizard. See:
-            http://mvnrepository.com/artifact/com.yammer.dropwizard/dropwizard-core/0.6.2
-            -->
-            <dependency>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-webapp</artifactId>
-                <version>${jetty.version}</version>
-            </dependency>
-
-            <!-- For the ProxyServlet -->
-            <dependency>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-servlets</artifactId>
-                <version>${jetty.version}</version>
-            </dependency>
-
-            <!-- JSP Support -->
-            <dependency>
-                <groupId>org.glassfish.web</groupId>
-                <artifactId>javax.servlet.jsp</artifactId>
-                <version>${glassfish.javax.version}</version>
-            </dependency>
-            <dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>5.1.6</version>
-			</dependency>
-		</dependencies>
-    </dependencyManagement>
+ 	</dependencies>
+ <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+          <dropwizard.version>0.7.0</dropwizard.version>
+          <jettyVersion>9.0.2.v20130417</jettyVersion>
+  </properties>
+  <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <createDependencyReducedPom>true</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.evonck.dw.server.DropwizardOauth2FormApplication</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+   
 </project>

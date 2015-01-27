@@ -48,25 +48,13 @@ function submitFormAddUser(){
 			contentType: 'application/json',
 			success: function(retour) {
 				saveTokens(retour);
+				document.location.href="/users/user_Id"
 			}
 		})
     }
 }
 function test(){
-$.ajax({
-	url: '/users/user_Id',
-	type: 'GET',
-	 beforeSend: function (xhr) {
-		 var tokenID = getTokens();
-	      xhr.setRequestHeader("Authorization", "Bearer "+tokenID)
-	    },
-	processData : false,
-	dataType: 'JSON',
-	contentType: 'application/json',
-	success: function(retour) {
-		window.location.href = "/days/";
-	}
-})
+	document.location.href="/users/user_Id" 
 }
 
 $(document).ready(function(){
