@@ -1,0 +1,108 @@
+
+@font-face {
+  font-family: Chunkfive;
+  src: url('../font/Chunkfive.otf')}
+@font-face {
+  font-family: Canter;
+  src: url('../font/Canter Outline.otf')}
+@font-face {
+  font-family: Mohave;
+  src: url('../font/Mohave.otf')}
+  
+#bodyhome{
+  	height:100%;
+}
+.container:{
+	height:100%;
+}
+
+.formUsertemplate{
+	text-align:center;
+	margin:auto;
+	width:100%;
+}
+.formUser{
+	background-color:#2C3E50;
+	display:inline-block;
+	width:60%
+}
+.register{
+	background-color: #2ECC71;
+	width:60%;
+	margin:auto;
+	padding:5px;
+	margin-bottom:opx;
+	text-align:center;
+	color:white;
+	font-family: Mohave, Helvetica, Arial, sans-serif;
+	margin-top:80px;
+}
+
+.form-input{
+	width:80%;
+	padding:20px;
+	margin:10px;
+	background-color:#DADFE1;
+	 border-style: none;
+	 display:inline;
+	 margin-right:0px;
+}
+.ImageForm {
+	background-color:#2ECC71;
+	width:10%;
+	height:60px;
+	margin:10px;
+	margin-left:0px;
+	position:relative;
+	display:inline-block;
+}
+.ImageForm img{
+	background-color:#2ECC71;
+	height:60px;
+	margin-left:0px;
+	position:relative;
+	display:inline-block;
+}
+.form-field{
+	display:inline;
+	width:90%;
+}
+.submit-form{
+	background-color : #2ECC71;
+	font-family: Mohave, Helvetica, Arial, sans-serif;
+	color:white;
+	padding:14px;
+	width:100%;
+	display:inline-block;
+	border-style:none;
+	font-size:2em;
+}
+.form-input.error{
+	display:inline;
+	background-color:#E74C3C;
+}
+.help-block{
+	font-family: Chunkfive, Helvetica, Arial, sans-serif;
+	color:#E74C3C;
+}
+.form-field input::-webkit-input-placeholder {
+    color:white;
+}
+ 
+.form-field input:-moz-placeholder {
+    color:white;
+}
+.dropdown-menu{
+	width:400px;
+	height:266px
+}
+.submit-form-nav{
+	width:100%;
+	background-color : #2ECC71;
+	font-family: Mohave, Helvetica, Arial, sans-serif;
+	color:white;
+	padding:14px;
+	display:inline-block;
+	border-style:none;
+	font-size:2em;
+}

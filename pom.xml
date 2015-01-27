@@ -4,4 +4,46 @@
   <artifactId>Dropwizard-Oauth2-Form</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Dropwizard-Oauth2-Form</name>
+  <dependencies>
+        <dependency>
+        	<groupId>io.dropwizard</groupId>
+       	 	<artifactId>dropwizard-core</artifactId>
+        	<version>${dropwizard.version}</version>
+    	</dependency>
+    	<dependency>
+        	<groupId>io.dropwizard</groupId>
+       	 	<artifactId>dropwizard-auth</artifactId>
+        	<version>${dropwizard.version}</version>
+    	</dependency>
+        <dependency>
+        	<groupId>io.dropwizard</groupId>
+        	<artifactId>dropwizard-views-freemarker</artifactId>
+        	<version>${dropwizard.version}</version>
+    	</dependency>
+    	<dependency>
+        	<groupId>io.dropwizard</groupId>
+        	<artifactId>dropwizard-assets</artifactId>
+        	<version>${dropwizard.version}</version>
+    	</dependency>
+    	<dependency>
+        	<groupId>io.dropwizard</groupId>
+        	<artifactId>dropwizard-hibernate</artifactId>
+        	<version>${dropwizard.version}</version>
+    	</dependency>
+    	<dependency>
+        	<groupId>io.dropwizard</groupId>
+        	<artifactId>dropwizard-db</artifactId>
+        	<version>${dropwizard.version}</version>
+    	</dependency>
+    	<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+  		</dependency>
+ </dependencies>
+ <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <dropwizard.version>0.7.0</dropwizard.version>
+  </properties>
 </project>
