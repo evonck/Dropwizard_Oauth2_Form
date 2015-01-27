@@ -1,5 +1,7 @@
 package com.evonck.Dropwizard_Oauth2_Form.resources;
 
+import io.dropwizard.hibernate.UnitOfWork;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;

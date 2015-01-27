@@ -54,8 +54,8 @@ function submitFormAddUser(){
 }
 function test(){
 $.ajax({
-	url: '/days',
-	type: 'Get',
+	url: '/users/user_Id',
+	type: 'GET',
 	 beforeSend: function (xhr) {
 		 var tokenID = getTokens();
 	      xhr.setRequestHeader("Authorization", "Bearer "+tokenID)
@@ -70,9 +70,6 @@ $.ajax({
 }
 
 $(document).ready(function(){
-	$(window).bind('scroll',function(e){
-   		parallaxScroll();
-   	})
     var test= document.cookie;
     //------------------------------------------------------
 	//Validate the add Day form

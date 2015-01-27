@@ -6,9 +6,7 @@ import com.evonck.Dropwizard_Oauth2_Form.core.User;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.sql.Update;
 import org.joda.time.DateTime;
-import org.omg.CORBA.Current;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import java.util.UUID;
