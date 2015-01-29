@@ -14,6 +14,5 @@ angularjsDropwizard.config(['$routeProvider', '$httpProvider',
   		$httpProvider.defaults.useXDomain = true;
   		$routeProvider
 			.when('/',{templateUrl: 'partials/home.html', controller: 'HomeCtrl'})
-			.when('/users/:username',{templateUrl: 'partials/users.html', controller: 'UserCtrl'})
-	
+			.when('/users/:username',{templateUrl: 'partials/users.html', controller: 'UserCtrl'})	
 	}]);

@@ -2,29 +2,34 @@
 
 /* Controllers */
 
-var angularjsDropwizardControllers = angular.module('angularjsDropwizardControllers', []);
+var angularjsDropwizardControllers = angular.module('angularjsDropwizardControllers', ['ngCookies']);
 
-angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UserResource','$location',
-	function($scope, UserResource,$location) {
+angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource','$location','$cookies',
+	function($scope, UsersResource,$location,$cookies) {
 		$scope.master = {};
 		 $scope.user = {};
   		$scope.submitFormAddUser = function() {
-    		var user = new UserResource($scope.user);
+    		var user = new UsersResource($scope.user);
     		var key = "pass2";
 			delete user[key]; 
-    		user.$save($scope.user,function(successResult) {
-        		localStorage["tokens-Kalc-ID"] = successResult.accessTokenId;
-		 		localStorage["tokens-Kalc-UserID"] = successResult.userId;
-				localStorage["last_access_utc"] = successResult.lastAccessUTC;
+    		user.$save('',function(successResult) {
+        		$cookies.tokensKalID = successResult.accessTokenId;
+		 		$cookies.tokensKalcUserName = successResult.username;
+				$cookies.lastaccessutc = successResult.lastAccessUTC;
 				$location.path('/users/'+$scope.user.username);
     		})
   		}
-		
+  		$scope.login = function(){
+
+  		}		
 	}
 ]);
 
-angularjsDropwizardControllers.controller('UserCtrl', ['$scope',
-	function($scope) {
-		
+angularjsDropwizardControllers.controller('UserCtrl', ['$scope','UserResource','$cookies',
+	function($scope,UserResource,$cookies) {
+		var test = $cookies;
+		var user = UserResource.get({ username: $cookies.tokensKalcUserName} , function() {
+    console.log(entry);
+  		});
 	}
 ]);

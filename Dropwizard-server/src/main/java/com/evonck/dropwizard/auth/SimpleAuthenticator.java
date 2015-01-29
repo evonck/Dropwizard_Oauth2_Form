@@ -12,7 +12,7 @@ import org.joda.time.Period;
 
 import java.util.UUID;
 
-public class SimpleAuthenticator implements Authenticator<String, Long> {
+public class SimpleAuthenticator implements Authenticator<String, String> {
 	public static final int ACCESS_TOKEN_EXPIRE_TIME_MIN = 30;
 	private AccessTokenDAO accessTokenDAO;
 
@@ -24,7 +24,7 @@ public class SimpleAuthenticator implements Authenticator<String, Long> {
 
 
 	@Override
-	public Optional<Long> authenticate(String accessTokenId) throws AuthenticationException {
+	public Optional<String> authenticate(String accessTokenId) throws AuthenticationException {
 		// Check input, must be a valid UUID
 		UUID accessTokenUUID;
 		try {
@@ -51,7 +51,7 @@ public class SimpleAuthenticator implements Authenticator<String, Long> {
 
 		// Return the user's id for processing
 		//Optional<Long> user_id =Optional.of(accessTokenUpdated.getUserId());
-		 Optional<Long> user_ID = Optional.of(accessToken.get().getUserId());
-		return user_ID;
+		 Optional<String> username = Optional.of(accessToken.get().getUsername());
+		return username;
 	}
 }

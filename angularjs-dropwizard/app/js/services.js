@@ -6,8 +6,9 @@ var angularjsDropwizardServices = angular.module('angularjsDropwizardServices', 
 /**
 Post les infos de creation à l'api
 **/
-angularjsDropwizardServices.factory('UserResource', function($resource){
-	return $resource('http://localhost:9090/users'); 
-
+angularjsDropwizardServices.factory('UsersResource', function($resource){
+	return $resource('http://localhost:9090/users/'); 
 });
-
+angularjsDropwizardServices.factory('UserResource', function($resource){
+	return $resource('http://localhost:9090/users/:username'); 
+});

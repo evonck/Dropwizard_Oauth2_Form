@@ -35,7 +35,7 @@ public class AccessTokenDAO extends AbstractDAO<AccessToken> {
 	public AccessToken generateNewAccessToken(final User user, final DateTime dateTime) {
 		AccessToken accessToken = new AccessToken();
 		accessToken.setLastAccessUTC(dateTime);
-		accessToken.setUserId(user.getUserId());
+		accessToken.setUsername(user.getUsername());
 		persist(accessToken);
 		return accessToken;
 	}

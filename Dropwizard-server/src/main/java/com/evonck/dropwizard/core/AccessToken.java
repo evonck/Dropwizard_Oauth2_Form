@@ -25,9 +25,9 @@ public class AccessToken {
 	@Column(columnDefinition = "BINARY(16)",name = "accessToken_id", unique = true)
 	private UUID accessTokenId;
 
-	@Column(name="userId")
+	@Column(name="username")
 	@NotNull
-	private Long userId;
+	private String username;
 
 	@Column(name="lastAccess_utc")
 	@NotNull
@@ -42,12 +42,12 @@ public class AccessToken {
 		this.accessTokenId = accessTokenId;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public DateTime getLastAccessUTC() {
@@ -66,7 +66,7 @@ public class AccessToken {
 				+ ((accessTokenId == null) ? 0 : accessTokenId.hashCode());
 		result = prime * result
 				+ ((lastAccessUTC == null) ? 0 : lastAccessUTC.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -89,10 +89,10 @@ public class AccessToken {
 				return false;
 		} else if (!lastAccessUTC.equals(other.lastAccessUTC))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
+		if (username == null) {
+			if (other.username != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!username.equals(other.username))
 			return false;
 		return true;
 	}

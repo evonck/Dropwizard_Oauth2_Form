@@ -33,11 +33,11 @@ public class UsersResources {
 		this.userDAO = userDAO;
 		this. accessTokenDAO =  accessTokenDAO;
 	}
-	@Path("/user_Id")
+	@Path("/{username}")
 	@GET
     @Timed
     @UnitOfWork
-    public UserView showHome(@Auth Long userId	) {
+    public UserView showHome(@Auth String username) {
         return new UserView();
     }
 	

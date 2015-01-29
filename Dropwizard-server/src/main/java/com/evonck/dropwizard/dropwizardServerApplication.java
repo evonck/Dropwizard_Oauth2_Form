@@ -67,7 +67,7 @@ public class dropwizardServerApplication extends Application<dropwizardServerCon
     	environment.jersey().register(new HomeResources());
    	 	environment.jersey().register(new UsersResources(userDAO,accessTokenDAO));
 		environment.jersey().register(new OAuth2Resource(configuration.getAllowedGrantTypes(), accessTokenDAO, userDAO));
-   	 	environment.jersey().register(new OAuthProvider<Long>(new SimpleAuthenticator(accessTokenDAO), configuration.getBearerRealm()));
+   	 	environment.jersey().register(new OAuthProvider<String>(new SimpleAuthenticator(accessTokenDAO), configuration.getBearerRealm()));
     }
 
 }
