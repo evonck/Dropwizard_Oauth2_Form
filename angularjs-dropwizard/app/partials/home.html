@@ -1,0 +1,54 @@
+<div id="bodyhome">
+	<div ng-include="'partials/navbar.html'"></div>
+		<div class="formUsertemplate">
+			<div class="register">
+				<h2>Inscription</h2>
+			</div>
+			<form role="form" novalidate class="formUser" id="FormAddUser" name="FormAddUser">
+				<div class="form-field">
+					<input ng-model="user.username" minlength="4" maxlength="15" type="text" class="form-input" id="username" name="username" placeholder="Username" username  required>
+					<div class="ImageForm">
+						<img src="img/username.png" >
+					</div>
+				</div>
+				<div class="help-block" ng-show="FormAddUser.$submitted || FormAddUser.username.$touched">
+					<span ng-show="FormAddUser.username.$error.required">Tell us your username.</span>
+					<span ng-show="FormAddUser.username.$error.minlength || FormAddUser.username.$error.maxlength">The username must be at least 4 caracters!</span>
+					<span ng-show="FormAddUser.username.$pending.username">Checking if this username is available...</span>
+					<span ng-show="FormAddUser.username.$error.username">This username is already taken!</span>
+				</div>
+				<div class="form-field">
+					<input ng-model="user.email" type="email" class="form-input" id="email" name="email" placeholder="Email"  required>
+					<div class="ImageForm">
+						<img src="img/email.png" >
+					</div>
+				</div>
+				<div class="help-block" ng-show="FormAddUser.$submitted || FormAddUser.email.$touched">
+					<span ng-show="FormAddUser.email.$error.required">Tell us your email.</span>
+					<span ng-show="FormAddUser.email.$error.email">Please enter a valid email.</span>
+				</div>
+				<div class="form-field">
+					<input ng-model="user.pass" minlength="6" type="password" class="form-input" id="pass" name="pass" placeholder="Password"  required>
+					<div class="ImageForm" >
+						<img src="img/password.png" >
+					</div>
+				</div>
+				<div class="help-block" ng-show="FormAddUser.$submitted || FormAddUser.pass.$touched">
+					<div ng-show="FormAddUser.pass.$error.required">Tell us your password.</div>
+					<span ng-show="FormAddUser.pass.$error.minlength">The password must be at least 6 caracters!</span>
+				</div>
+				<div class="form-field">
+					<input ng-model="user.pass2" type="password" class="form-input" id="pass2" name="pass2" placeholder="Confirm Password" pw-check="pass" required>
+					<div class="ImageForm">
+						<img src="img/password.png" >
+					</div>
+				</div>	
+				<div class="help-block" ng-show="FormAddUser.$submitted || FormAddUser.pass2.$touched"  >
+					<div ng-show="FormAddUser.pass2.$error.required">Please confirm your password.</div>
+					<div ng-show="FormAddUser.pass2.$error.pwmatch">The 2 passwords are different</div>
+				</div>
+			<button ng-click="submitFormAddUser(user)" type="submit" class="submit-form">Submit</button>
+			</form>
+		</div>
+	</div> 	     	
+</div>
