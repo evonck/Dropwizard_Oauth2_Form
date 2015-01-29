@@ -7,6 +7,6 @@ The connexion to the Dropwizard API used Oauth securization.
 
 Run:
 - create dropwizard-server by making mvn clean package.
--Run java -jar target/Dropwizard-server-0.0.1-SNAPSHOT server config.yml.
--Run the angularjs app npm start.
+- Run java -jar target/Dropwizard-server-0.0.1-SNAPSHOT server config.yml
+- Run the angularjs app npm start.
 
