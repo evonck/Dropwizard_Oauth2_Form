@@ -64,7 +64,7 @@ public class dropwizardServerApplication extends Application<dropwizardServerCon
         filter.setInitParameter("allowCredentials", "true");
     	final AccessTokenDAO accessTokenDAO = new AccessTokenDAO(hibernate.getSessionFactory());
     	final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
-    	environment.jersey().register(new HomeResources());
+    	environment.jersey().register(new HomeResources(userDAO));
    	 	environment.jersey().register(new UsersResources(userDAO,accessTokenDAO));
 		environment.jersey().register(new OAuth2Resource(configuration.getAllowedGrantTypes(), accessTokenDAO, userDAO));
    	 	environment.jersey().register(new OAuthProvider<String>(new SimpleAuthenticator(accessTokenDAO), configuration.getBearerRealm()));

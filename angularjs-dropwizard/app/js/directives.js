@@ -2,37 +2,28 @@
 	'use strict';
 var angularjsDropwizardDirectives = angular.module('angularjsDropwizardDirectives', []);
 
-angularjsDropwizardDirectives.directive('username', function($q, $timeout) {
+angularjsDropwizardDirectives.directive('username',['$http', function($http) {
 	return {
 		require: 'ngModel',
 		link: function(scope, elm, attrs, ctrl) {
-		var usernames = ['Jim', 'John', 'Jill', 'Jackie'];
-
-			ctrl.$asyncValidators.username = function(modelValue, viewValue) {
-
-				if (ctrl.$isEmpty(modelValue)) {
-					// consider empty model valid
-					return $q.when();
-				}
-
-				var def = $q.defer();
-
-				$timeout(function() {
-					// Mock a delayed response
-					if (usernames.indexOf(modelValue) === -1) {
-						// The username is available
-						def.resolve();
-					} else {
-						def.reject();
-					}
-
-				}, 2000);
-
-				return def.promise;
-			};
+			scope.$watch(attrs.ngModel, function() {
+	        	$http({
+	          		method: 'POST',
+	          		url: 'http://localhost:9090/check/'+ attrs.username,
+	        	}).success(function(data, status, headers, cfg) {
+	        		if(status == 409){
+	          			ctrl.$setValidity('unique', false);
+	        		}
+	        		if(status == 200){
+	          			ctrl.$setValidity('unique',true);
+	 				}
+	        	}).error(function(data, status, headers, cfg) {
+	          		ctrl.$setValidity('unique', false);
+	        	});
+			});
 		}
-	};
-});
+	}
+}]);
 
 angularjsDropwizardDirectives.directive('pwCheck', function() {
 	return {

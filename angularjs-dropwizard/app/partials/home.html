@@ -6,16 +6,16 @@
 			</div>
 			<form role="form" novalidate class="formUser" id="FormAddUser" name="FormAddUser">
 				<div class="form-field">
-					<input ng-model="user.username" minlength="4" maxlength="15" type="text" class="form-input" id="username" name="username" placeholder="Username" username  required>
+					<input ng-model="user.username" minlength="4" maxlength="15" type="text" class="form-input" id="username" name="username" placeholder="Username" username="{{user.username}}"  required>
 					<div class="ImageForm">
-						<img src="img/username.png" >
+						<img src="img/username.png">
 					</div>
 				</div>
 				<div class="help-block" ng-show="FormAddUser.$submitted || FormAddUser.username.$touched">
 					<span ng-show="FormAddUser.username.$error.required">Tell us your username.</span>
 					<span ng-show="FormAddUser.username.$error.minlength || FormAddUser.username.$error.maxlength">The username must be at least 4 caracters!</span>
-					<span ng-show="FormAddUser.username.$pending.username">Checking if this username is available...</span>
-					<span ng-show="FormAddUser.username.$error.username">This username is already taken!</span>
+					<span ng-show="FormAddUser.username.$pending.unique">Checking if this username is available...</span>
+					<span ng-show="FormAddUser.username.$error.unique">This username is already taken!</span>
 				</div>
 				<div class="form-field">
 					<input ng-model="user.email" type="email" class="form-input" id="email" name="email" placeholder="Email"  required>
