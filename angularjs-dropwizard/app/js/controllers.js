@@ -2,10 +2,10 @@
 
 /* Controllers */
 
-var angularjsDropwizardControllers = angular.module('angularjsDropwizardControllers', ['ngCookies']);
+var angularjsDropwizardControllers = angular.module('angularjsDropwizardControllers', ['ngStorage']);
 
-angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource','$location','$cookies',
-	function($scope, UsersResource,$location,$cookies) {
+angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource','$location','$localStorage','LoginResource','$window',
+	function($scope, UsersResource,$location,$localStorage,LoginResource,$window) {
 		$scope.master = {};
 		 $scope.user = {};
   		$scope.submitFormAddUser = function() {
@@ -13,23 +13,34 @@ angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource',
     		var key = "pass2";
 			delete user[key]; 
     		user.$save('',function(successResult) {
-        		$cookies.tokensKalID = successResult.accessTokenId;
-		 		$cookies.tokensKalcUserName = successResult.username;
-				$cookies.lastaccessutc = successResult.lastAccessUTC;
-				$location.path('/users/'+$scope.user.username);
+        		$localStorage.tokensKalID = successResult.accessTokenId;
+		 		$localStorage.tokensKalcUserName = successResult.username;
+				$localStorage.lastaccessutc = successResult.lastAccessUTC;
+				//$window.location='/app/#/users/'+$scope.user.username
+				$location.path('/users/'+$scope.user.username).replace();
     		})
   		}
-  		$scope.login = function(){
+  		$scope.login = function(userlogin) {
+  			LoginResource.save({grantType: "password",email : userlogin.email, password : userlogin.pass},
+  			function(successResult){
+				$localStorage.tokensKalID = successResult.accessTokenId;
+		 		$localStorage.tokensKalcUserName = successResult.username;
+				$localStorage.lastaccessutc = successResult.lastAccessUTC;
+				//$window.location='/app/#/users/'+successResult.username
+				$location.path('/users/'+successResult.username).replace();
+			}
+  			)
 
   		}		
 	}
 ]);
 
-angularjsDropwizardControllers.controller('UserCtrl', ['$scope','UserResource','$cookies',
-	function($scope,UserResource,$cookies) {
-		var test = $cookies;
-		var user = UserResource.get({ username: $cookies.tokensKalcUserName} , function() {
-    console.log(entry);
+angularjsDropwizardControllers.controller('UserCtrl', ['$scope','UserResource','$localStorage','$routeParams',
+	function($scope,UserResource,$localStorage,$routeParams) {
+		var user = UserResource.get({ username: $routeParams.username} , function() {
+    		$scope.error="succes"
+  		},function(){
+  			$scope.error="unauthorized"
   		});
 	}
 ]);

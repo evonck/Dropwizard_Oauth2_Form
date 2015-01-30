@@ -10,8 +10,11 @@ import io.dropwizard.hibernate.UnitOfWork;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
 
@@ -37,10 +40,14 @@ public class UsersResources {
 	@GET
     @Timed
     @UnitOfWork
-    public UserView showHome(@Auth String username) {
-        return new UserView();
+    public UserView showHome( @PathParam("username")String username) {
+		User user = userDAO.findUserByUsername(username);
+		if(user != null){
+			return new UserView();
+		}else{
+			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
+		}
     }
-	
 	
 	@POST
     @UnitOfWork

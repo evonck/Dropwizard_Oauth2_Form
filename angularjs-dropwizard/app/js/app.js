@@ -9,10 +9,13 @@ var angularjsDropwizard = angular.module('angularjsDropwizard', [
 ]);
 
 
-angularjsDropwizard.config(['$routeProvider', '$httpProvider',
-	function ($routeProvider, $httpProvider) {
+angularjsDropwizard.config(['$routeProvider', '$httpProvider','$locationProvider',
+	function ($routeProvider, $httpProvider,$locationProvider) {
   		$httpProvider.defaults.useXDomain = true;
   		$routeProvider
 			.when('/',{templateUrl: 'partials/home.html', controller: 'HomeCtrl'})
-			.when('/users/:username',{templateUrl: 'partials/users.html', controller: 'UserCtrl'})	
+			.when('/users/:username',{templateUrl: 'partials/users.html', controller: 'UserCtrl'});
+		$httpProvider.interceptors.push('tokenInjector');
+		$httpProvider.interceptors.push('requestRecoverer');
+	//	$locationProvider.html5Mode(true);
 	}]);

@@ -19,6 +19,8 @@ import java.util.Map;
 import org.hibernate.SessionFactory;
 
 public class UserDAO extends AbstractDAO<User> {
+	final static Map<Long, User> userTable = new HashMap<Long,User>();
+	private final static int ITERATION_NUMBER = 1000;
 	
 	
 	private  SessionFactory factory;
@@ -26,9 +28,16 @@ public class UserDAO extends AbstractDAO<User> {
         super(factory);
         this.factory = factory;
     }
+	public User findUserByUsername(String username){
+		List<User> user = currentSession().createSQLQuery(
+	     		   "select u.* from users u where u.username =:username ").addEntity("u", User.class).setParameter("username",username).list();
+		if(user.size()!=0){
+			return user.get(0);
+		}else{
+			return null;
+		}
+	}
 	
-	final static Map<Long, User> userTable = new HashMap<Long,User>();
-	private final static int ITERATION_NUMBER = 1000;
 	
 	public User findUserByEmailAndPassword(String email, String password) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException {
 		boolean authenticated=false;
@@ -42,6 +51,7 @@ public class UserDAO extends AbstractDAO<User> {
             email="";
             password="";
 		}	
+	
 		List<User> user = currentSession().createSQLQuery(
 	     		   "select u.* from users u where u.email =:email ").addEntity("u", User.class).setParameter("email",email).list();
 		String digest, salt;
