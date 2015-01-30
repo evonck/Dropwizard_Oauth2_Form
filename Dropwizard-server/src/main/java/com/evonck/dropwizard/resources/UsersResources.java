@@ -40,7 +40,7 @@ public class UsersResources {
 	@GET
     @Timed
     @UnitOfWork
-    public UserView showHome( @PathParam("username")String username) {
+    public UserView showHome(@Auth String username) {
 		User user = userDAO.findUserByUsername(username);
 		if(user != null){
 			return new UserView();

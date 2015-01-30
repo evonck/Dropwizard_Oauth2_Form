@@ -20,7 +20,7 @@ angularjsDropwizardServices.factory('LoginResource', function($resource){
 angularjsDropwizardServices.factory('tokenInjector', ['$localStorage', function($localStorage) {  
     var tokenInjector = {
         request: function(config) {
-            if ($localStorage.tokensKalID !=undefined) {
+            if ($localStorage.tokensKalID !='') {
             	config.headers['Authorization'] = "Bearer "+$localStorage.tokensKalID;
             }
             return config;

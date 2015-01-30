@@ -7,7 +7,8 @@ var angularjsDropwizardControllers = angular.module('angularjsDropwizardControll
 angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource','$location','$localStorage','LoginResource','$window',
 	function($scope, UsersResource,$location,$localStorage,LoginResource,$window) {
 		$scope.master = {};
-		 $scope.user = {};
+		$scope.user = {};
+		$scope.loginUser =false;
   		$scope.submitFormAddUser = function() {
     		var user = new UsersResource($scope.user);
     		var key = "pass2";
@@ -16,7 +17,6 @@ angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource',
         		$localStorage.tokensKalID = successResult.accessTokenId;
 		 		$localStorage.tokensKalcUserName = successResult.username;
 				$localStorage.lastaccessutc = successResult.lastAccessUTC;
-				//$window.location='/app/#/users/'+$scope.user.username
 				$location.path('/users/'+$scope.user.username).replace();
     		})
   		}
@@ -26,7 +26,6 @@ angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource',
 				$localStorage.tokensKalID = successResult.accessTokenId;
 		 		$localStorage.tokensKalcUserName = successResult.username;
 				$localStorage.lastaccessutc = successResult.lastAccessUTC;
-				//$window.location='/app/#/users/'+successResult.username
 				$location.path('/users/'+successResult.username).replace();
 			}
   			)
@@ -37,10 +36,17 @@ angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource',
 
 angularjsDropwizardControllers.controller('UserCtrl', ['$scope','UserResource','$localStorage','$routeParams',
 	function($scope,UserResource,$localStorage,$routeParams) {
+		$scope.loginUser=true;
 		var user = UserResource.get({ username: $routeParams.username} , function() {
     		$scope.error="succes"
   		},function(){
   			$scope.error="unauthorized"
   		});
+  		$scope.logOut = function(){
+  			$localStorage.tokensKalID = '';
+		 	$localStorage.tokensKalcUserName = '';
+			$localStorage.lastaccessutc = '';
+
+  		}
 	}
 ]);

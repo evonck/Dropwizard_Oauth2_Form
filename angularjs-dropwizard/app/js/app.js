@@ -18,4 +18,4 @@ angularjsDropwizard.config(['$routeProvider', '$httpProvider','$locationProvider
 		$httpProvider.interceptors.push('tokenInjector');
 		$httpProvider.interceptors.push('requestRecoverer');
 	//	$locationProvider.html5Mode(true);
-	}]);
+	}]);	
