@@ -47,16 +47,25 @@ angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource',
 angularjsDropwizardControllers.controller('UserCtrl', ['$scope','UserResource','$localStorage','$routeParams',
 	function($scope,UserResource,$localStorage,$routeParams) {
 		$scope.loginUser=true;
-		$scope.user = UserResource.get({ username: $routeParams.username} , function() {
-    		$scope.error="succes"
-  		},function(){
-  			$scope.error="unauthorized"
-  		});
+		$scope.user = UserResource.get({username: $routeParams.username}); 
   		$scope.logOut = function(){
   			$localStorage.tokensKalID = '';
 		 	$localStorage.tokensKalcUserName = '';
 			$localStorage.lastaccessutc = '';
 
+  		}
+  		$scope.ChangePasswordUser = function(){
+  			$scope.user.$update({ oldpass: $scope.userUpdate.oldpass, newpass: $scope.userUpdate.pass}, 
+  				function(value, responseHeaders) {
+
+  					$response.status
+    				$('#ChangePassword').modal('hide');
+  				},function(httpResponse) {
+
+  					$response.status
+    				$('#ChangePassword').modal('hide');
+  				}
+  			);
   		}
 	}
 ]);

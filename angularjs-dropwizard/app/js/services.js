@@ -10,8 +10,11 @@ angularjsDropwizardServices.factory('UsersResource', function($resource){
 	return $resource('http://localhost:9090/users/'); 
 });
 angularjsDropwizardServices.factory('UserResource', function($resource){
-	return $resource('http://localhost:9090/users/:username'); 
+	return $resource('http://localhost:9090/users/:username',{username:'@username'},{
+		update:{method:"PUT",params:{username:'@username',oldpass:'@oldpass'}}}
+	); 
 });
+
 angularjsDropwizardServices.factory('LoginResource', function($resource){
 	return $resource('http://localhost:9090/oauth2/token'); 
 });

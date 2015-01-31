@@ -9,9 +9,10 @@ import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -23,7 +24,6 @@ import com.evonck.dropwizard.core.AccessToken;
 import com.evonck.dropwizard.core.User;
 import com.evonck.dropwizard.db.AccessTokenDAO;
 import com.evonck.dropwizard.db.UserDAO;
-import com.evonck.dropwizard.views.UserView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -62,5 +62,18 @@ public class UsersResources {
 		DateTime dateTime = new DateTime();	
 		AccessToken accessToken = this.accessTokenDAO.generateNewAccessToken(userAuth, dateTime);
 		return accessToken;
+    }
+	
+	@Path("/{username}")
+	@PUT
+    @UnitOfWork
+    public User UpdateUser(User user,@QueryParam("oldpass") String oldpassword,@QueryParam("newpass") String newpassword) throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException {
+		user = userDAO.findUserByEmailAndPassword(user.getEmail(), oldpassword);
+		if(user !=null ){
+			user.setPass(newpassword);
+			return userDAO.create(user);
+		}else{
+			throw new WebApplicationException(Response.status(Response.Status.NOT_MODIFIED).build());
+		}
     }
 }

@@ -1,7 +1,7 @@
 .user{
 	padding:5px;	
 	width:30%;
-	background-color: #F22613;
+	background-color: #22A7F0;
 	display :block;
 	margin-left: auto;
 	margin-right: auto;
@@ -18,9 +18,9 @@
 	padding:71px;
 }
 .userInfo{
-	padding:5px;	
+	padding-top:5px;	
 	width:30%;
-	background-color: #D91E18;
+	background-color: #4183D7;
 	display :block;
 	margin-left: auto;
 	margin-right: auto;
@@ -28,4 +28,16 @@
 	color:white;
 	font-family: Canter, Helvetica, Arial, sans-serif;
 
+}
+.userInfo h2{
+	margin-top: 0px;
+}
+.ChangePassword{
+	width:100%;
+	background-color: #2C3E50;
+	padding-top:5px;
+	padding-bottom:5px;	
+	border-style: none;
+	font-family: Canter, Helvetica, Arial, sans-serif;
+	font-size:2em;
 }

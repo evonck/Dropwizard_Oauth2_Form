@@ -14,7 +14,7 @@
 				<li id="li_home"><a href="#/">Home</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-			    <li ng-hide="{{loginUser}}" class="dropdown">
+			    <li ng-hide="loginUser" class="dropdown">
 					<a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Login <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<form novalidate role="form" id="LoginUserNav" name="LoginUserNav" class="LoginUserNav">
@@ -44,7 +44,7 @@
 						</form>
 					</ul>
 				</li>
-				<li ng-show="{{loginUser}}" id="li_logout"><a ng-click="logOut()" href="#/">LogOut</a></li>
+				<li ng-show="loginUser" id="li_logout"><a ng-click="logOut()" href="#/">LogOut</a></li>
 			</ul>	
 		</div><!--/.nav-collapse -->
 	</div>

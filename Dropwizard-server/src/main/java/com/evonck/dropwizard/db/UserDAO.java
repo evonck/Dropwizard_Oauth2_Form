@@ -20,7 +20,7 @@ import org.hibernate.SessionFactory;
 
 public class UserDAO extends AbstractDAO<User> {
 	final static Map<Long, User> userTable = new HashMap<Long,User>();
-	private final static int ITERATION_NUMBER = 1000;
+	private final static int ITERATION_NUMBER = 3;
 	
 	
 	private  SessionFactory factory;
@@ -94,7 +94,7 @@ public class UserDAO extends AbstractDAO<User> {
          }
          
 	}
-	
+
 	 public User create(User user)
 	           throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException
 	   {
