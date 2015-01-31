@@ -18,7 +18,7 @@
 					<span ng-show="FormAddUser.username.$error.unique">This username is already taken!</span>
 				</div>
 				<div class="form-field">
-					<input ng-model="user.email" type="email" class="form-input" id="email" name="email" placeholder="Email"  required>
+					<input ng-model="user.email" type="email" class="form-input" id="email" name="email" placeholder="Email" email="{{user.email}}" required>
 					<div class="ImageForm">
 						<img src="img/email.png" >
 					</div>
@@ -26,6 +26,8 @@
 				<div class="help-block" ng-show="FormAddUser.$submitted || FormAddUser.email.$touched">
 					<span ng-show="FormAddUser.email.$error.required">Tell us your email.</span>
 					<span ng-show="FormAddUser.email.$error.email">Please enter a valid email.</span>
+					<span ng-show="FormAddUser.email.$error.unique">This username is already taken!</span>
+
 				</div>
 				<div class="form-field">
 					<input ng-model="user.pass" minlength="6" type="password" class="form-input" id="pass" name="pass" placeholder="Password"  required>

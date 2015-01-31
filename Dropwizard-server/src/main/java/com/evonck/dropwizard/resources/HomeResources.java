@@ -46,4 +46,18 @@ public class HomeResources {
 			return true;
 		}
     }
+	
+	@Path("/checkEmail/{email}")
+	@POST
+    @Timed
+    @UnitOfWork
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean CheckEmail(@PathParam("email")  String email) {
+		User user = userDAO.findUserByEmail(email);
+		if(user != null){
+			throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
+		}else{
+			return true;
+		}
+    }
 }

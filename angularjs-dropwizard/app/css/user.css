@@ -1,0 +1,31 @@
+.user{
+	padding:5px;	
+	width:30%;
+	background-color: #F22613;
+	display :block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	color:white;
+	font-family: Canter, Helvetica, Arial, sans-serif;
+
+}
+
+.UserBody{
+	height:100%;
+	width:100%;
+	background-color: #95A5A6;
+	padding:71px;
+}
+.userInfo{
+	padding:5px;	
+	width:30%;
+	background-color: #D91E18;
+	display :block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	color:white;
+	font-family: Canter, Helvetica, Arial, sans-serif;
+
+}

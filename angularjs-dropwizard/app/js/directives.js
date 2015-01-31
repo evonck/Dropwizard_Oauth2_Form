@@ -25,6 +25,29 @@ angularjsDropwizardDirectives.directive('username',['$http', function($http) {
 	}
 }]);
 
+angularjsDropwizardDirectives.directive('email',['$http', function($http) {
+	return {
+		require: 'ngModel',
+		link: function(scope, elm, attrs, ctrl) {
+			scope.$watch(attrs.ngModel, function() {
+	        	$http({
+	          		method: 'POST',
+	          		url: 'http://localhost:9090/checkEmail/'+ attrs.email,
+	        	}).success(function(data, status, headers, cfg) {
+	        		if(status == 409){
+	          			ctrl.$setValidity('unique', false);
+	        		}
+	        		if(status == 200){
+	          			ctrl.$setValidity('unique',true);
+	 				}
+	        	}).error(function(data, status, headers, cfg) {
+	          		ctrl.$setValidity('unique', false);
+	        	});
+			});
+		}
+	}
+}]);
+
 angularjsDropwizardDirectives.directive('pwCheck', function() {
 	return {
 		require: 'ngModel',

@@ -38,6 +38,16 @@ public class UserDAO extends AbstractDAO<User> {
 		}
 	}
 	
+	public User findUserByEmail(String email){
+		List<User> user = currentSession().createSQLQuery(
+	     		   "select u.* from users u where u.email =:email ").addEntity("u", User.class).setParameter("email",email).list();
+		if(user.size()!=0){
+			return user.get(0);
+		}else{
+			return null;
+		}
+	}
+	
 	
 	public User findUserByEmailAndPassword(String email, String password) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException {
 		boolean authenticated=false;

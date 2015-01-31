@@ -24,9 +24,12 @@ import com.evonck.dropwizard.core.User;
 import com.evonck.dropwizard.db.AccessTokenDAO;
 import com.evonck.dropwizard.db.UserDAO;
 import com.evonck.dropwizard.views.UserView;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 @Path("/users")
-@Produces(MediaType.TEXT_HTML)
+@Produces(MediaType.APPLICATION_JSON)
 
 public class UsersResources {
 	private final UserDAO userDAO;
@@ -40,10 +43,13 @@ public class UsersResources {
 	@GET
     @Timed
     @UnitOfWork
-    public UserView showHome(@Auth String username) {
+    public Response  GetInfo(@Auth String username) throws JsonProcessingException {
 		User user = userDAO.findUserByUsername(username);
 		if(user != null){
-			return new UserView();
+			 ObjectMapper objectMapper = new ObjectMapper();
+	         ObjectWriter writer = objectMapper.writer();
+			 String entity = writer.writeValueAsString(user);
+		      return Response.ok(entity).build();
 		}else{
 			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
 		}
@@ -51,7 +57,6 @@ public class UsersResources {
 	
 	@POST
     @UnitOfWork
-    @Produces(MediaType.APPLICATION_JSON)
     public AccessToken AddUser(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException {
 		User userAuth=userDAO.create(user);
 		DateTime dateTime = new DateTime();	
