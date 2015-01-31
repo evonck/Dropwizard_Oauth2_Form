@@ -27,6 +27,7 @@ import com.evonck.dropwizard.db.UserDAO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.sun.jersey.core.spi.factory.ResponseBuilderImpl;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -73,7 +74,7 @@ public class UsersResources {
 			user.setPass(newpassword);
 			return userDAO.create(user);
 		}else{
-			throw new WebApplicationException(Response.status(Response.Status.NOT_MODIFIED).build());
+			return null;
 		}
     }
 }

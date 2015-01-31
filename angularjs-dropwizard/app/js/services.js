@@ -38,6 +38,7 @@ angularjsDropwizardServices.factory('requestRecoverer', ['$q', '$location',funct
             if (response.status == 401) {
             	$location.path('/');
             }
+           
             return response;
         },
         responseError: function(response){

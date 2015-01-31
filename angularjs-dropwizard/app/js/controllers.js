@@ -44,8 +44,8 @@ angularjsDropwizardControllers.controller('HomeCtrl', ['$scope','UsersResource',
 	}
 ]);
 
-angularjsDropwizardControllers.controller('UserCtrl', ['$scope','UserResource','$localStorage','$routeParams',
-	function($scope,UserResource,$localStorage,$routeParams) {
+angularjsDropwizardControllers.controller('UserCtrl', ['$scope','UserResource','$localStorage','$routeParams','$http',
+	function($scope,UserResource,$localStorage,$routeParams,$http) {
 		$scope.loginUser=true;
 		$scope.user = UserResource.get({username: $routeParams.username}); 
   		$scope.logOut = function(){
@@ -55,17 +55,39 @@ angularjsDropwizardControllers.controller('UserCtrl', ['$scope','UserResource','
 
   		}
   		$scope.ChangePasswordUser = function(){
-  			$scope.user.$update({ oldpass: $scope.userUpdate.oldpass, newpass: $scope.userUpdate.pass}, 
+  			$http({
+            	url: 'http://localhost:9090/users/'+$routeParams.username,
+            	method: "PUT",
+            	 params: { oldpass: $scope.userUpdate.oldpass, newpass: $scope.userUpdate.pass},
+            	data: { username : $routeParams.username, email : $scope.user.email},
+            	headers: {'Content-Type': 'application/json'}
+        		}).success(function (data, status, headers, config) {
+        			if(status == 200){
+        				$('#ChangePassword').modal('hide');
+        				$scope.error =false;
+        			}else{
+        				$scope.error = true;
+        			}
+        		}).error(function (data, status, headers, config) {
+                	$scope.error = true;
+            	});
+  
+
+
+
+
+			/*$scope.user.$update({ oldpass: $scope.userUpdate.oldpass, newpass: $scope.userUpdate.pass},
   				function(value, responseHeaders) {
-
-  					$response.status
-    				$('#ChangePassword').modal('hide');
+  					if(value.pass == null){
+						$scope.error = true;
+  					}else{
+	  					$('#ChangePassword').modal('hide');
+						$scope.error = false;
+  					}
   				},function(httpResponse) {
-
-  					$response.status
-    				$('#ChangePassword').modal('hide');
-  				}
-  			);
+  					$scope.error = true;
+    			}
+  			);*/
   		}
 	}
 ]);

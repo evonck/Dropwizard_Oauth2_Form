@@ -15,6 +15,7 @@ angularjsDropwizard.config(['$routeProvider', '$httpProvider','$locationProvider
   		$routeProvider
 			.when('/',{templateUrl: 'partials/home.html', controller: 'HomeCtrl'})
 			.when('/users/:username',{templateUrl: 'partials/users.html', controller: 'UserCtrl'});
+		$httpProvider.defaults.useXDomain = true;
 		$httpProvider.interceptors.push('tokenInjector');
 		$httpProvider.interceptors.push('requestRecoverer');
 	//	$locationProvider.html5Mode(true);
